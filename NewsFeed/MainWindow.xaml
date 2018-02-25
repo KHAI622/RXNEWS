@@ -1,0 +1,50 @@
+﻿<Window x:Class="NewsFeed.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:NewsFeed.ViewModel"
+        mc:Ignorable="d"
+        Title="News Feed"
+        Width="800"
+        Height="700"
+        d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
+        WindowStartupLocation="CenterScreen"
+        Icon="Resource/news_feed.ico"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Border x:Name="ClickMeBorder" BorderBrush="Black" BorderThickness="1" Width="100" Height="100" Background="LightBlue" Margin="10">
+                <TextBlock Text="Click me" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <StackPanel>
+                <Button Content="Show in App" Command="{Binding ShowNewsInAppCommand}"/>
+                <Button Content="Show on Console" Command="{Binding ShowNewsOnConsoleCommand}"/>
+                <Button Content="Show in VS Output" Command="{Binding ShowNewsInOutputCommand}"/>
+            </StackPanel>
+            <StackPanel>
+                <Button Content="Stop show in App" Command="{Binding StopNewsInAppCommand}"/>
+                <Button Content="Stop show on Console" Command="{Binding StopNewsOnConsoleCommand}"/>
+                <Button Content="Stop show in VS Output" Command="{Binding StopNewsInOutputCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="2" Margin="30, 0, 30, 0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="470" x:Name="ScrollViewer">
+                <ItemsControl x:Name="NewsItemsControl" ItemsSource="{Binding NewsFeed}" Margin="10">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontSize="25"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+</Window>
